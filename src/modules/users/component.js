@@ -9,22 +9,19 @@ import { bindActionCreators } from 'redux';
 import Button from 'material-ui/Button';
 import * as faker from 'faker';
 
-const addRandomUser = (actions) => {
-  const user = {
-    firstname:  faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    email: faker.internet.email(),
-    bio: faker.lorem.paragraph(),
-    age: faker.random.number(),
-  }
-  actions.users.addUserToList(user, 'users');
-}
+const getRandomUserData = () => ({
+  firstname:  faker.name.firstName(),
+  lastname: faker.name.lastName(),
+  email: faker.internet.email(),
+  bio: faker.lorem.paragraph(),
+  age: faker.random.number(),
+});
 
 const Users = ({users, followers, friends, actions}) => {
   return (
     <div>
       <h1>Users</h1>
-      <Button onClick={() => addRandomUser(actions)} raised>+ Random User</Button>
+      <Button onClick={() => actions.addUserToList(getRandomUserData())} raised>+ Random User</Button>
       <Button onClick={() => actions.expandList('users')} raised>Expand all</Button>
       <Button onClick={() => actions.collapseList('users')} raised>Collapse all</Button>
       <UserList users={users} actions={actions.userList}/>

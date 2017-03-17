@@ -10,46 +10,30 @@ export const initialState = {
   friends: UserList.initialState,
 }
 
-const getActionName = name => {
-  const parts = name.split('/');
-  const clean = startCase(parts[parts.length-1].toLowerCase()).replace(' ', '');
-  return clean.charAt(0).toLowerCase() + clean.slice(1);
-}
-
-export default (state = initialState, action) => {
-  const list = action.list;
-  console.debug(action);
-  if (contains(action.type, values(UserList.actions))) {
-    console.log(getActionName(action.type));
-    return update(state, {
-      $merge: {
-        [list]: UserList.reducer(state[list], UserList.actionCreators[getActionName(action.type)](action.userId)),
-      }
-    })
-  }
-  switch (action.type) {
+export default (state = initialState, { action, action: { type, payload, meta }}) => {
+  switch (type) {
     case actions.ADD_USER_TO_LIST:
       return update(state, {
         $merge: {
-          [list]: UserList.reducer(state[list], UserList.actionCreators.addUser(action.user)),
+          [payload.list]: UserList.reducer(state[payload.list], UserList.actionCreators.addUser(payload)),
         }
       });
     case actions.REMOVE_USER_FROM_LIST:
       return update(state, {
         $merge: {
-          [list]: UserList.reducer(state[list], UserList.actionCreators.removeUser(action.user)),
+          [payload.list]: UserList.reducer(state[payload.list], UserList.actionCreators.removeUser(payload)),
         }
       });
     case actions.EXPAND_LIST:
       return update(state, {
         $merge: {
-          [list]: UserList.reducer(state[list], UserList.actionCreators.expandAll()),
+          [payload.list]: UserList.reducer(state[payload.list], UserList.actionCreators.expandAll(payload)),
         }
       });
     case actions.COLLAPSE_LIST:
       return update(state, {
         $merge: {
-          [list]: UserList.reducer(state[list], UserList.actionCreators.collapseAll()),
+          [payload.list]: UserList.reducer(state[payload.list], UserList.actionCreators.collapseAll(payload)),
         }
       });
     default:
