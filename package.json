@@ -43,10 +43,19 @@
     "whatwg-fetch": "2.0.2"
   },
   "dependencies": {
+    "faker": "^4.1.0",
+    "gravatar-url": "^2.0.0",
+    "immutability-helper": "^2.1.2",
+    "lodash": "^4.17.4",
+    "material-ui": "^1.0.0-alpha.7",
+    "ramda": "^0.23.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-action-wrapper": "^1.0.1",
+    "redux-actions": "^2.0.1",
+    "reselect": "^2.5.4"
   },
   "scripts": {
     "start": "node scripts/start.js",
