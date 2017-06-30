@@ -1,39 +1,38 @@
-import * as actions from './actions';
+import actions from './actions';
 import * as UserCard from '../UserCard';
+import { camelize } from 'humps';
 
 export const initialState = [];
 
-export default function reducer(state = initialState, { action, action: { payload }}) {
-  switch (action.type) {
-    case actions.ADD_USER:
+const loose = (a, b) => a == b;
+
+
+export default function reducer(state = initialState, action = {}) {
+  const { type = '', payload = {}, meta = {} } = action;
+  console.log(actions);
+  switch (true) {
+    case loose(actions.addUser, type):
       return state.concat(
         [UserCard.reducer(undefined, UserCard.actions.init(payload))]
       );
-    case actions.REMOVE_USER:
+    case loose(actions.removeUser, type):
       return state.filter(
         userCardState => userCardState.data.email !== payload.email
       );
-    case actions.EXPAND_USER:
-      return state.map((userCardState, index) => {
-        if (payload.userId === index) {
-          return UserCard.reducer(userCardState, UserCard.actions.expand())
-        }
-        return userCardState;
-      });
-    case actions.COLLAPSE_USER:
-      return state.map((userCardState, index) => {
-        if (payload.userId === index) {
-          return UserCard.reducer(userCardState, UserCard.actions.collapse())
-        }
-        return userCardState;
-      });
-    case actions.EXPAND_ALL:
+    case loose(actions.expandAll, type):
       return state.map(
         userCardState => UserCard.reducer(userCardState, UserCard.actions.expand())
       );
-    case actions.COLLAPSE_ALL:
+    case loose(actions.collapseAll, type):
       return state.map(
         userCardState => UserCard.reducer(userCardState, UserCard.actions.collapse())
       );
+    default:
+      return state.map((userCardState, index) => {
+        if (meta.userId === UserCard.selectors.getUserId(userCardState)) {
+          return UserCard.reducer(userCardState, UserCard.actions[camelize(type)](payload))
+        }
+        return userCardState;
+      });
   }
 }

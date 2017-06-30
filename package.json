@@ -44,7 +44,9 @@
   },
   "dependencies": {
     "faker": "^4.1.0",
+    "flux-standard-action": "^1.2.0",
     "gravatar-url": "^2.0.0",
+    "humps": "^2.0.0",
     "immutability-helper": "^2.1.2",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-alpha.7",
@@ -55,6 +57,7 @@
     "redux": "^3.5.2",
     "redux-action-wrapper": "^1.0.1",
     "redux-actions": "^2.0.1",
+    "redux-logger": "^2.10.2",
     "reselect": "^2.5.4"
   },
   "scripts": {

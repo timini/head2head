@@ -1,13 +1,12 @@
-import NAME from './constants';
 import { createActions } from 'redux-actions';
+import { identity, map  } from 'ramda';
+import { actionWithMeta } from 'utils/actions';
 
-const actionMap = {};
-
-const identityActions = [
-  `${NAME}-INIT`,
-  `${NAME}-TOGGLE`,
-  `${NAME}-EXPAND`,
-  `${NAME}-COLLAPSE`,
-];
-
-export default createActions(actionMap, ...identityActions);
+export default map(actionWithMeta,
+  createActions({
+    INIT: identity,
+    TOGGLE: identity,
+    EXPAND: identity,
+    COLLAPSE: identity,
+  }),
+);

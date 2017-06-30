@@ -1,15 +1,15 @@
-import NAME from './constants';
 import { createActions } from 'redux-actions';
+import { identity } from 'ramda';
+import { actions as userCardActions } from '../UserCard';
 
-const actionMap = {};
+const actions = {
+  ...createActions({
+    ADD_USER: identity,
+    REMOVE_USER: identity,
+    EXPAND_ALL: identity,
+    COLLAPSE_ALL: identity,
+  }),
+  // userCard: userCardActions,
+};
 
-const identityActions = [
-  `${NAME}-ADD_USER`,
-  `${NAME}-REMOVE_USER`,
-  `${NAME}-EXPAND_USER`,
-  `${NAME}-COLLAPSE_USER`,
-  `${NAME}-EXPAND_ALL`,
-  `${NAME}-COLLAPSE_ALL`,
-];
-
-export default createActions(actionMap, ...identityActions);
+export default actions;

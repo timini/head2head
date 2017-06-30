@@ -14,7 +14,10 @@ const UserCard = ({
       <div>
         <Avatar email={email} size={500} />
         <h2>{lastname}, {firstname}</h2>
-        <Button raised onClick={actions.expand}>More..</Button>
+        <Button raised onClick={() => {
+            console.log(email);
+            actions.expand();
+          }}>More..</Button>
       </div>
     )
   }
